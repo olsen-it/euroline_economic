@@ -9,5 +9,7 @@
 </economic_settings>
 <general>
 <euroline_fee_percentage>5</euroline_fee_percentage>
+<csv_file_path>/home/hellethorning/Dropbox</csv_file_path>
+<first_number>50000</first_number>
 </general>
 </eue_config></xml>
