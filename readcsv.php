@@ -1,13 +1,13 @@
 <?php
+include("economic.php");
 $conf = simplexml_load_file("config.xml");
 $dir = $conf->eue_config->general->csv_file_path[0];
 if (is_dir($dir)) {
     if ($dh = opendir($dir)) {
         while (($file = readdir($dh)) !== false) {
-//	echo "..." . substr($file,-3) . "...\n";
             if (!strcasecmp("csv",substr($file,-3))) {
              	$fil = csv_to_array("$dir/$file");
-		print_r($fil);
+		put_in_economic($conf,$fil,$dir,$file);
 	    }
 	}
     }
