@@ -5,14 +5,15 @@ function put_in_economic($conf,$filen,$dir,$file) {
 	$total = 0;
 	$fee = 0;
 	foreach ($filen['rows'] as $row) {
+		$row['Amount settled'] = floatval(str_replace(",",".",$row['Amount settled']));
 		$total += $row['Amount settled'];
-		createentry($client,date("Y-m-d",strtotime($row['Transaction date'])) . "T00:00:00",$row['Additional ref 1'],floatval(str_replace(",",".",-$row['Amount settled'])),$conf->eue_config->economic_settings->euroline_financeacc,null,14,$conf->eue_config->general->voucher_number,'FinanceVoucher','DKK',floatval(str_replace(",",".",-$row['Amount settled'])));
+		createentry($client,date("Y-m-d",strtotime($row['Transaction date'])) . "T00:00:00",$row['Additional ref 1'],floatval(str_replace(",",".",-$row['Amount settled'])),$conf->eue_config->economic_settings->euroline_financeacc,null,7,$conf->eue_config->general->voucher_number,'FinanceVoucher','DKK',floatval(str_replace(",",".",-$row['Amount settled'])));
 		echo "Amount settled: $total, ";
-		$fee += ($total / 100 * $conf->eue_config->general->euroline_fee_percentage);
-		echo "Fee: " . ($total / 100 * $conf->eue_config->general->euroline_fee_percentage) . "\n";
+		$fee += (floatval($row['Amount settled']) / 100 * floatval($conf->eue_config->general->euroline_fee_percentage));
+		echo "Fee: " . ($total / 100 * floatval($conf->eue_config->general->euroline_fee_percentage)) . "\n";
 		}
-		createentry($client,date("Y-m-d",strtotime($row['Transaction date'])) . "T00:00:00",$file,floatval($total-$fee),$conf->eue_config->economic_settings->euroline_debtorno,null,14,$conf->eue_config->general->voucher_number,'DebtorPayment','DKK',floatval($total-$fee));
-		createentry($client,date("Y-m-d",strtotime($row['Transaction date'])) . "T00:00:00",$file,floatval($fee),$conf->eue_config->economic_settings->euroline_feeacc,null,14,$conf->eue_config->general->voucher_number,'FinanceVoucher','DKK',floatval($fee));
+		createentry($client,date("Y-m-d",strtotime($row['Transaction date'])) . "T00:00:00",$file,floatval($total-$fee),$conf->eue_config->economic_settings->euroline_debtorno,null,7,$conf->eue_config->general->voucher_number,'DebtorPayment','DKK',floatval($total-$fee));
+		createentry($client,date("Y-m-d",strtotime($row['Transaction date'])) . "T00:00:00",$file,floatval($fee),$conf->eue_config->economic_settings->euroline_feeacc,null,7,$conf->eue_config->general->voucher_number,'FinanceVoucher','DKK',floatval($fee));
 		system("mv \"$dir/$file\" \"$dir/Processed\"");
 }
 function economic_connect($conf) {
