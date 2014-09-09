@@ -17,7 +17,7 @@ function put_in_economic($conf,$filen,$dir,$file) {
 		system("mv \"$dir/$file\" \"$dir/Processed\"");
 }
 function economic_connect($conf) {
-$url = 'https://www.e-conomic.com/secure/api1/EconomicWebservice.asmx?WSDL';
+$url = 'https://api.e-conomic.com/secure/api1/EconomicWebService.asmx?wsdl';
 $client = new SoapClient($url, array('trace' => 1, 'exceptions' => 1)); 
    $client->Connect(array(
       'agreementNumber' => $conf->eue_config->economic_settings->agreement,
