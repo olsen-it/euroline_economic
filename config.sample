@@ -6,9 +6,10 @@
 <euroline_debtorno>3311777</euroline_debtorno>
 <euroline_financeacc>5819</euroline_financeacc>
 <euroline_feeacc>3628</euroline_feeacc>
+<cbno>2</cbno>
 </economic_settings>
 <general>
-<euroline_fee_percentage>5</euroline_fee_percentage>
+<euroline_fee_percentage>1.15</euroline_fee_percentage>
 <csv_file_path>/home/hellethorning/Dropbox</csv_file_path>
 <voucher_number>50000</voucher_number>
 </general>
